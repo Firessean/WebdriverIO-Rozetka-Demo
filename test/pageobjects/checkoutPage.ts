@@ -1,20 +1,19 @@
 import basePage from './basePage.js';
 
 class CheckoutPage extends basePage {
-  // Selectors
   private get checkoutForm() {
     return '.checkout-form';
   }
 
-  private get lastNameInput() {
+  private get userLastNameInput() {
     return 'input[formcontrolname="surname"]';
   }
 
-  private get firstNameInput() {
+  private get userFirstNameInput() {
     return 'input[formcontrolname="name"]';
   }
 
-  private get mobileInput() {
+  private get userMobileInput() {
     return '#checkoutUserPhone';
   }
 
@@ -23,11 +22,11 @@ class CheckoutPage extends basePage {
   }
 
   private get deliveriesCityContent() {
-    return '.modal__content';
+    return 'ul.header-location__popular';
   }
 
-  private get linkDnipro() {
-    return '.modal__content li:nth-child(4) a';
+  private get link() {
+    return 'li';
   }
 
   private get confirmDeliveriesCityButton() {
@@ -38,15 +37,70 @@ class CheckoutPage extends basePage {
     return '.dropdown-button';
   }
 
-  private get deliveryPickUpButton() {
-    return '.autocomplete__list-inner li:nth-child(1) div';
+  private get deliveryPickUpButtons() {
+    return 'ul.autocomplete__list-inner';
   }
 
   private get checkoutTotalButton() {
     return '.checkout-total__buttons';
   }
 
-  // Functions
+  private get checkoutDropdownButton() {
+    return 'rz-checkout-dropdown[trackby=id]';
+  }
+
+  private get checkoutDropdownContent() {
+    return 'ul.autocomplete__list-inner';
+  }
+
+  private get phoneAttentionMessage() {
+    return 'div[validclass="form__hint_type_attention"]';
+  }
+
+  public async clickOnDniproDeliveryButton() {
+    await $$(this.deliveriesCityContent)[0].$$(this.link)[3].$('a').click();
+  }
+
+  public async clickOnDeliveryPickUpButton() {
+    await $$(this.deliveryPickUpButtons)[0].$$(this.link)[0].click();
+  }
+
+  public async clickOnCheckoutTotalButton() {
+    await $(this.checkoutTotalButton).click();
+  }
+
+  public async assertPhoneAttentionMessage() {
+    await expect($(this.phoneAttentionMessage)).toHaveTextContaining(
+      'Необхідно підтвердити номер телефону'
+    );
+  }
+
+  public async fillUserCheckoutForm() {
+    await $(this.checkoutForm).waitForDisplayed();
+    await $(this.userLastNameInput).setValue('Тест');
+    await $(this.userFirstNameInput).setValue('Тест');
+    await $(this.userMobileInput).setValue('0504564861');
+  }
+
+  public async chooseDeliveriesCity() {
+    await $(this.deliveriesCityButton).click();
+    await $(this.deliveriesCityContent).waitForDisplayed();
+    await this.clickOnDniproDeliveryButton();
+    await $(this.confirmDeliveriesCityButton).click();
+  }
+
+  public async chooseDeliveryPickUp() {
+    await $(this.dropdownButton).click();
+    await this.clickOnDeliveryPickUpButton();
+  }
+
+  public async chooseRecipient() {
+    await $(this.checkoutDropdownButton).click();
+    await $$(this.checkoutDropdownContent)[0]
+      .$$(this.link)[0]
+      .waitForClickable();
+    await $$(this.checkoutDropdownContent)[0].$$(this.link)[0].click();
+  }
 }
 
 export default new CheckoutPage();

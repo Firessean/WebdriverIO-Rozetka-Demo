@@ -1,23 +1,25 @@
 import homePage from '../pageobjects/homePage.js';
 import computersPage from '../pageobjects/computersPage.js';
+import header from '../pageobjects/components/header.js';
+import cartPage from '../pageobjects/cartPage.js';
+import computersNotebooksPage from '../pageobjects/computersNotebooksPage.js';
+import checkoutPage from '../pageobjects/checkoutPage.js';
 
 describe('Checkout Page', () => {
   beforeEach(async () => {
-    await $('.menu-categories_type_main').waitForDisplayed();
-    await $(homePage.computersLink).click();
-    await $('.portal-grid').waitForDisplayed();
-    await $(
-      'a[title="Комп\'ютери, неттопи, моноблоки\t"][class="tile-cats__picture"]'
-    ).click();
-    await $('.sidebar').waitForDisplayed();
-    await $('a[data-id="Rozetka"]').click();
-    await $('a[data-id="ARTLINE"]').click();
-    await $('input[formcontrolname="max"]').setValue('60000');
-    await $('.slider-filter__button').click();
-    await $('option[value="2: expensive"]').click();
+    await homePage.clickOnComputersLink();
+    await computersNotebooksPage.clickOnComputersLink();
+    await computersPage.fillFilter();
     await computersPage.buyFirstComputer();
+    await header.clickOnCartButton();
+    await cartPage.clickOnSubmitButton();
   });
-  it('should ', async () => {
-    await browser.pause(5000);
+  it('should see message for phone confirm', async () => {
+    await checkoutPage.fillUserCheckoutForm();
+    await checkoutPage.chooseDeliveriesCity();
+    await checkoutPage.chooseDeliveryPickUp();
+    await checkoutPage.chooseRecipient();
+    await checkoutPage.clickOnCheckoutTotalButton();
+    await checkoutPage.assertPhoneAttentionMessage();
   });
 });

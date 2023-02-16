@@ -1,8 +1,7 @@
 import basePage from './basePage.js';
 
 class homePage extends basePage {
-  // Selectors
-  public get computersLink() {
+  private get computersLink() {
     return '//ul[contains(@class, "menu-categories_type_main")]//a[text()="Ноутбуки та комп’ютери"]';
   }
 
@@ -10,7 +9,10 @@ class homePage extends basePage {
     return '.menu-categories_type_main';
   }
 
-  // Functions
+  public async clickOnComputersLink() {
+    await $(this.menuCategories).waitForDisplayed();
+    await $(this.computersLink).click();
+  }
 }
 
 export default new homePage();

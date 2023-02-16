@@ -1,7 +1,6 @@
 import basePage from './basePage.js';
 
 class computersPage extends basePage {
-  // Selectors
   private get sideBar() {
     return '.sidebar';
   }
@@ -30,15 +29,29 @@ class computersPage extends basePage {
     return 'ul.catalog-grid';
   }
 
+  private get link() {
+    return 'li';
+  }
+
   private get buyButton() {
     return '.buy-button';
   }
 
-  // Functions
+  public async fillFilter() {
+    await $(this.sideBar).waitForDisplayed();
+    await $(this.rozetkaCheckbox).click();
+    await $(this.artlineCheckbox).click();
+    await $(this.sliderMaxInput).setValue('60000');
+    await $(this.sliderFilterButton).click();
+    await $(this.expensiveCatalogFilter).click();
+  }
 
   public async buyFirstComputer() {
-    await $$(this.catalog)[0].$$('li')[0].$(this.buyButton).waitForClickable();
-    await $$(this.catalog)[0].$$('li')[0].$(this.buyButton).click();
+    await $$(this.catalog)[0]
+      .$$(this.link)[0]
+      .$(this.buyButton)
+      .waitForClickable();
+    await $$(this.catalog)[0].$$(this.link)[0].$(this.buyButton).click();
   }
 }
 

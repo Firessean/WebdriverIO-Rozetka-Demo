@@ -1,7 +1,6 @@
 import basePage from './basePage.js';
 
 class computersNotebooksPage extends basePage {
-  // Selectors
   private get portalGrid() {
     return '.portal-grid';
   }
@@ -10,7 +9,10 @@ class computersNotebooksPage extends basePage {
     return 'a[title="Комп\'ютери, неттопи, моноблоки\t"][class="tile-cats__picture"]';
   }
 
-  // Functions
+  public async clickOnComputersLink() {
+    await $(this.portalGrid).waitForDisplayed();
+    await $(this.computers).click();
+  }
 }
 
 export default new computersNotebooksPage();
