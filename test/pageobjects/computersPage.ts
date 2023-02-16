@@ -39,6 +39,7 @@ class computersPage extends basePage {
 
   public async fillFilter() {
     await $(this.sideBar).waitForDisplayed();
+    await $(this.rozetkaCheckbox).waitForClickable();
     await $(this.rozetkaCheckbox).click();
     await $(this.artlineCheckbox).click();
     await $(this.sliderMaxInput).setValue('60000');

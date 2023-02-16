@@ -76,10 +76,14 @@ class CheckoutPage extends basePage {
   }
 
   public async fillUserCheckoutForm() {
+    const randomPhoneNumber = `050${await this.generateRandomNumber(
+      100000000,
+      199999998
+    )}`;
     await $(this.checkoutForm).waitForDisplayed();
     await $(this.userLastNameInput).setValue('Тест');
     await $(this.userFirstNameInput).setValue('Тест');
-    await $(this.userMobileInput).setValue('0504564861');
+    await $(this.userMobileInput).setValue(randomPhoneNumber);
   }
 
   public async chooseDeliveriesCity() {
@@ -98,7 +102,7 @@ class CheckoutPage extends basePage {
     await $(this.checkoutDropdownButton).click();
     await $$(this.checkoutDropdownContent)[0]
       .$$(this.link)[0]
-      .waitForClickable();
+      .waitForDisplayed();
     await $$(this.checkoutDropdownContent)[0].$$(this.link)[0].click();
   }
 }
