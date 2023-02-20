@@ -1,6 +1,6 @@
-import basePage from '../basePage.js';
+import BasePage from '../base.page.js';
 
-class header extends basePage {
+class Header extends BasePage {
   // Selectors
   private get appHeader() {
     return 'rz-header.app-header';
@@ -17,4 +17,4 @@ class header extends basePage {
   }
 }
 
-export default new header();
+export default new Header();

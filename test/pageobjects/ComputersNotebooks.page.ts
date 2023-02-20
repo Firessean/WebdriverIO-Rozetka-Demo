@@ -1,6 +1,6 @@
-import basePage from './basePage.js';
+import BasePage from './base.page.js';
 
-class computersNotebooksPage extends basePage {
+class ComputersNotebooksPage extends BasePage {
   private get portalGrid() {
     return '.portal-grid';
   }
@@ -15,4 +15,4 @@ class computersNotebooksPage extends basePage {
   }
 }
 
-export default new computersNotebooksPage();
+export default new ComputersNotebooksPage();
