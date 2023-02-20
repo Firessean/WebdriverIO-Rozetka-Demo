@@ -1,6 +1,6 @@
-import basePage from './basePage.js';
+import BasePage from './base.page.js';
 
-class CheckoutPage extends basePage {
+class CheckoutPage extends BasePage {
   private get checkoutForm() {
     return '.checkout-form';
   }

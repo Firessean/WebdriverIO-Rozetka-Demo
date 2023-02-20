@@ -1,6 +1,6 @@
-import basePage from './basePage.js';
+import BasePage from './base.page.js';
 
-class homePage extends basePage {
+class HomePage extends BasePage {
   private get computersLink() {
     return '//ul[contains(@class, "menu-categories_type_main")]//a[text()="Ноутбуки та комп’ютери"]';
   }
@@ -15,4 +15,4 @@ class homePage extends basePage {
   }
 }
 
-export default new homePage();
+export default new HomePage();

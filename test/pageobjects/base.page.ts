@@ -1,4 +1,4 @@
-export default class basePage {
+export default class BasePage {
   // Selectors
   // Functions
   public async generateRandomNumber(min, max) {

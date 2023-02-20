@@ -1,6 +1,6 @@
-import basePage from './basePage.js';
+import BasePage from './base.page.js';
 
-class computersPage extends basePage {
+class ComputersPage extends BasePage {
   private get sideBar() {
     return '.sidebar';
   }
@@ -56,4 +56,4 @@ class computersPage extends basePage {
   }
 }
 
-export default new computersPage();
+export default new ComputersPage();

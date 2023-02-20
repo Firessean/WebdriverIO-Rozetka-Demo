@@ -1,6 +1,6 @@
-import basePage from './basePage.js';
+import BasePage from './base.page.js';
 
-class cartPage extends basePage {
+class CartPage extends BasePage {
   // Selectors
   private get submitButton() {
     return 'a[data-testid="cart-receipt-submit-order"]';
@@ -13,4 +13,4 @@ class cartPage extends basePage {
   }
 }
 
-export default new cartPage();
+export default new CartPage();
