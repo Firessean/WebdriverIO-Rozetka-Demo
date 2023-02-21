@@ -1,10 +1,6 @@
 import BasePage from './base.page.js';
 
 class ComputersPage extends BasePage {
-  private get sideBar() {
-    return '.sidebar';
-  }
-
   private get rozetkaCheckbox() {
     return 'a[data-id="Rozetka"]';
   }
@@ -37,21 +33,34 @@ class ComputersPage extends BasePage {
     return '.buy-button';
   }
 
-  public async fillFilter() {
-    await $(this.sideBar).waitForDisplayed();
-    await $(this.rozetkaCheckbox).waitForClickable();
+  public async clickOnRozetkaCheckbox() {
     await $(this.rozetkaCheckbox).click();
+  }
+
+  public async clickOnArtlineCheckbox() {
     await $(this.artlineCheckbox).click();
+  }
+
+  public async setSliderMaxInput() {
     await $(this.sliderMaxInput).setValue('60000');
+  }
+
+  public async clickOnFilterButton() {
     await $(this.sliderFilterButton).click();
+  }
+
+  public async clickOnExpensiveCatalogFilter() {
     await $(this.expensiveCatalogFilter).click();
   }
 
-  public async buyFirstComputer() {
+  public async waitForClickableFirstProductBuyButton() {
     await $$(this.catalog)[0]
       .$$(this.link)[0]
       .$(this.buyButton)
       .waitForClickable();
+  }
+
+  public async buyFirstProduct() {
     await $$(this.catalog)[0].$$(this.link)[0].$(this.buyButton).click();
   }
 }
