@@ -50,22 +50,3 @@ When(/^I click on checkout button$/, async () => {
 Then(/^I should see message for phone confirm$/, async () => {
   await CheckoutPage.assertPhoneAttentionMessage();
 });
-
-// describe('Checkout Page', () => {
-//   beforeEach(async () => {
-//     await HomePage.clickOnComputersLink();
-//     await ComputersNotebooksPage.clickOnComputersLink();
-//     await ComputersPage.fillFilter();
-//     await ComputersPage.buyFirstComputer();
-//     await Header.clickOnCartButton();
-//     await CartPage.clickOnSubmitButton();
-//   });
-//   it('should see message for phone confirm', async () => {
-//     await CheckoutPage.fillUserCheckoutForm();
-//     await CheckoutPage.chooseDeliveriesCity();
-//     await CheckoutPage.chooseDeliveryPickUp();
-//     await CheckoutPage.chooseRecipient();
-//     await CheckoutPage.clickOnCheckoutTotalButton();
-//     await CheckoutPage.assertPhoneAttentionMessage();
-//   });
-// });
