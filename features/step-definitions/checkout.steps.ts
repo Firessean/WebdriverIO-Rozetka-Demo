@@ -20,21 +20,24 @@ Given(/^I am on the checkout page$/, async () => {
   await CartPage.clickOnSubmitButton();
 });
 
-When(/^I fill user checkout form$/, async () => {
-  await CheckoutPage.fillUserLastNameInput();
-  await CheckoutPage.fillUserFirstNameInput();
-  await CheckoutPage.fillPhoneNumberInput();
-});
+When(
+  /^I fill user checkout form with (.*) last name, (.*) first name and random phone number$/,
+  async (lastName: string, firstName: string) => {
+    await CheckoutPage.fillUserLastNameInput(lastName);
+    await CheckoutPage.fillUserFirstNameInput(firstName);
+    await CheckoutPage.fillPhoneNumberInput();
+  }
+);
 
-When(/^I choose deliveries city$/, async () => {
+When(/^I choose deliveries city (.*)$/, async (city: string) => {
   await CheckoutPage.clickOnDeliveriesCityButton();
-  await CheckoutPage.clickOnDniproDeliveryButton();
+  await CheckoutPage.clickOnDniproDeliveryButton(city);
   await CheckoutPage.clickOnConfirmDeliveriesCityButton();
 });
 
-When(/^I choose delivery pick up$/, async () => {
+When(/^I choose delivery pick up (.*)$/, async (address) => {
   await CheckoutPage.clickOnDropdownDeliveryPickUpButton();
-  await CheckoutPage.clickOnDeliveryPickUpButton();
+  await CheckoutPage.clickOnDeliveryPickUpButton(address);
 });
 
 When(/^I choose recipient$/, async () => {

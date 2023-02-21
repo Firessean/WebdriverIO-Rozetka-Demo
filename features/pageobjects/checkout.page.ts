@@ -17,8 +17,8 @@ class CheckoutPage extends BasePage {
     return '.deliveries__city';
   }
 
-  private get deliveriesCityContent() {
-    return 'ul.header-location__popular';
+  private deliveriesCity(city: string) {
+    return `//common-city//a[contains(text(),"${city}")]`;
   }
 
   private get link() {
@@ -33,8 +33,8 @@ class CheckoutPage extends BasePage {
     return '.dropdown-button';
   }
 
-  private get deliveryPickUpButtons() {
-    return 'ul.autocomplete__list-inner';
+  private deliveryPickUpButton(address) {
+    return `//rz-checkout-dropdown//div[contains(text(),"${address}")]`;
   }
 
   private get checkoutTotalButton() {
@@ -53,17 +53,17 @@ class CheckoutPage extends BasePage {
     return 'div[validclass="form__hint_type_attention"]';
   }
 
-  public async fillUserLastNameInput() {
-    await $(this.userLastNameInput).setValue('Тест');
+  public async fillUserLastNameInput(lastName: string) {
+    await $(this.userLastNameInput).setValue(lastName);
   }
 
-  public async fillUserFirstNameInput() {
-    await $(this.userFirstNameInput).setValue('Тест');
+  public async fillUserFirstNameInput(firstName: string) {
+    await $(this.userFirstNameInput).setValue(firstName);
   }
 
   public async fillPhoneNumberInput() {
     const randomPhoneNumber = `050${await this.generateRandomNumber(
-      100000000,
+      100000001,
       199999998
     )}`;
     await $(this.userMobileInput).setValue(randomPhoneNumber);
@@ -73,8 +73,8 @@ class CheckoutPage extends BasePage {
     await $(this.deliveriesCityButton).click();
   }
 
-  public async clickOnDniproDeliveryButton() {
-    await $$(this.deliveriesCityContent)[0].$$(this.link)[3].$('a').click();
+  public async clickOnDniproDeliveryButton(city: string) {
+    await $(this.deliveriesCity(city)).click();
   }
 
   public async clickOnConfirmDeliveriesCityButton() {
@@ -85,8 +85,8 @@ class CheckoutPage extends BasePage {
     await $(this.dropdownButton).click();
   }
 
-  public async clickOnDeliveryPickUpButton() {
-    await $$(this.deliveryPickUpButtons)[0].$$(this.link)[0].click();
+  public async clickOnDeliveryPickUpButton(address) {
+    await $(this.deliveryPickUpButton(address)).click();
   }
 
   public async clickOnDropdownRecipientButton() {
