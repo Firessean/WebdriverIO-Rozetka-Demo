@@ -1,10 +1,6 @@
 import BasePage from './base.page.js';
 
 class CheckoutPage extends BasePage {
-  private get checkoutForm() {
-    return '.checkout-form';
-  }
-
   private get userLastNameInput() {
     return 'input[formcontrolname="surname"]';
   }
@@ -21,8 +17,8 @@ class CheckoutPage extends BasePage {
     return '.deliveries__city';
   }
 
-  private get deliveriesCityContent() {
-    return 'ul.header-location__popular';
+  private deliveriesCity(city: string) {
+    return `//common-city//a[contains(text(),"${city}")]`;
   }
 
   private get link() {
@@ -37,8 +33,8 @@ class CheckoutPage extends BasePage {
     return '.dropdown-button';
   }
 
-  private get deliveryPickUpButtons() {
-    return 'ul.autocomplete__list-inner';
+  private deliveryPickUpButton(address) {
+    return `//rz-checkout-dropdown//div[contains(text(),"${address}")]`;
   }
 
   private get checkoutTotalButton() {
@@ -46,7 +42,7 @@ class CheckoutPage extends BasePage {
   }
 
   private get checkoutDropdownButton() {
-    return 'rz-checkout-dropdown[trackby=id]';
+    return 'rz-checkout-user-recipients button';
   }
 
   private get checkoutDropdownContent() {
@@ -57,12 +53,56 @@ class CheckoutPage extends BasePage {
     return 'div[validclass="form__hint_type_attention"]';
   }
 
-  public async clickOnDniproDeliveryButton() {
-    await $$(this.deliveriesCityContent)[0].$$(this.link)[3].$('a').click();
+  public async fillUserLastNameInput(lastName: string) {
+    await $(this.userLastNameInput).setValue(lastName);
   }
 
-  public async clickOnDeliveryPickUpButton() {
-    await $$(this.deliveryPickUpButtons)[0].$$(this.link)[0].click();
+  public async fillUserFirstNameInput(firstName: string) {
+    await $(this.userFirstNameInput).setValue(firstName);
+  }
+
+  public async fillPhoneNumberInput() {
+    const randomPhoneNumber = `050${await this.generateRandomNumber(
+      100000001,
+      199999998
+    )}`;
+    await $(this.userMobileInput).setValue(randomPhoneNumber);
+  }
+
+  public async clickOnDeliveriesCityButton() {
+    await $(this.deliveriesCityButton).click();
+  }
+
+  public async clickOnDniproDeliveryButton(city: string) {
+    await $(this.deliveriesCity(city)).click();
+  }
+
+  public async clickOnConfirmDeliveriesCityButton() {
+    await $(this.confirmDeliveriesCityButton).click();
+  }
+
+  public async clickOnDropdownDeliveryPickUpButton() {
+    await $(this.dropdownButton).click();
+  }
+
+  public async clickOnDeliveryPickUpButton(address) {
+    await $(this.deliveryPickUpButton(address)).click();
+  }
+
+  public async clickOnDropdownRecipientButton() {
+    await $(this.checkoutDropdownButton).click();
+  }
+
+  public async waitForDisplayedCheckoutDropdownContent() {
+    await browser.pause(100);
+    await $$(this.checkoutDropdownContent)[0].waitForDisplayed();
+    await $$(this.checkoutDropdownContent)[0]
+      .$$(this.link)[0]
+      .waitForDisplayed();
+  }
+
+  public async chooseUserRecipient() {
+    await $$(this.checkoutDropdownContent)[0].$$(this.link)[0].click();
   }
 
   public async clickOnCheckoutTotalButton() {
@@ -73,37 +113,6 @@ class CheckoutPage extends BasePage {
     await expect($(this.phoneAttentionMessage)).toHaveTextContaining(
       'Необхідно підтвердити номер телефону'
     );
-  }
-
-  public async fillUserCheckoutForm() {
-    const randomPhoneNumber = `050${await this.generateRandomNumber(
-      100000000,
-      199999998
-    )}`;
-    await $(this.checkoutForm).waitForDisplayed();
-    await $(this.userLastNameInput).setValue('Тест');
-    await $(this.userFirstNameInput).setValue('Тест');
-    await $(this.userMobileInput).setValue(randomPhoneNumber);
-  }
-
-  public async chooseDeliveriesCity() {
-    await $(this.deliveriesCityButton).click();
-    await $(this.deliveriesCityContent).waitForDisplayed();
-    await this.clickOnDniproDeliveryButton();
-    await $(this.confirmDeliveriesCityButton).click();
-  }
-
-  public async chooseDeliveryPickUp() {
-    await $(this.dropdownButton).click();
-    await this.clickOnDeliveryPickUpButton();
-  }
-
-  public async chooseRecipient() {
-    await $(this.checkoutDropdownButton).click();
-    await $$(this.checkoutDropdownContent)[0]
-      .$$(this.link)[0]
-      .waitForDisplayed();
-    await $$(this.checkoutDropdownContent)[0].$$(this.link)[0].click();
   }
 }
 

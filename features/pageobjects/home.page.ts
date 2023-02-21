@@ -5,12 +5,7 @@ class HomePage extends BasePage {
     return '//ul[contains(@class, "menu-categories_type_main")]//a[text()="Ноутбуки та комп’ютери"]';
   }
 
-  private get menuCategories() {
-    return '.menu-categories_type_main';
-  }
-
   public async clickOnComputersLink() {
-    await $(this.menuCategories).waitForDisplayed();
     await $(this.computersLink).click();
   }
 }
