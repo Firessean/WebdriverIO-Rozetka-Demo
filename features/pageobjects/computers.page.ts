@@ -1,36 +1,36 @@
-import BasePage from './base.page.js';
+import BasePage from "./base.page.js";
 
 class ComputersPage extends BasePage {
   private get rozetkaCheckbox() {
-    return 'a[data-id="Rozetka"]';
+    return "a[data-id=\"Rozetka\"]";
   }
 
   private get artlineCheckbox() {
-    return 'a[data-id="ARTLINE"]';
+    return "a[data-id=\"ARTLINE\"]";
   }
 
   private get sliderMaxInput() {
-    return 'input[formcontrolname="max"]';
+    return "input[formcontrolname=\"max\"]";
   }
 
   private get sliderFilterButton() {
-    return '.slider-filter__button';
+    return ".slider-filter__button";
   }
 
   private get expensiveCatalogFilter() {
-    return 'option[value="2: expensive"]';
+    return "option[value=\"2: expensive\"]";
   }
 
   private get catalog() {
-    return 'ul.catalog-grid';
+    return "ul.catalog-grid";
   }
 
   private get link() {
-    return 'li';
+    return "li";
   }
 
   private get buyButton() {
-    return '.buy-button';
+    return ".buy-button";
   }
 
   public async clickOnRozetkaCheckbox() {
@@ -38,11 +38,13 @@ class ComputersPage extends BasePage {
   }
 
   public async clickOnArtlineCheckbox() {
+    await $(this.artlineCheckbox).waitForClickable();
     await $(this.artlineCheckbox).click();
   }
 
   public async setSliderMaxInput() {
-    await $(this.sliderMaxInput).setValue('60000');
+    await $(this.sliderMaxInput).waitForDisplayed();
+    await $(this.sliderMaxInput).setValue("60000");
   }
 
   public async clickOnFilterButton() {
